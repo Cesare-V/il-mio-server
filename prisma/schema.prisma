@@ -1,0 +1,19 @@
+// Diciamo a Prisma che tipo di database usiamo e dove salvare il file
+datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+// Il generatore di codice Javascript
+generator client {
+    provider = "prisma-client-js"
+}
+
+// La nostra tabella dei dati!
+model Progetto {
+  id          Int      @id @default(autoincrement()) // Numero progressivo automatico (1, 2, 3...)
+  titolo      String                                  // Testo obbligatorio
+  descrizione String?                                 // Il punto di domanda "?" significa che è opzionale!
+  completato  Boolean  @default(false)                // Di default è falso
+  creatoIl    DateTime @default(now())                  // Salva automaticamente la data e l'ora attuali!
+}
