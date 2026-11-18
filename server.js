@@ -1,3 +1,4 @@
+require('dotenv').config(); // 👈 Carica le variabili segrete dal file .env senza toccare il codice!
 const express = require('express');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
@@ -6,10 +7,14 @@ const jwt = require('jsonwebtoken');
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Chiave segreta del server
-const JWT_SECRET = "la-mia-chiave-segretissima-2026";
+// Chiave segreta del server (letta in modo sicuro dalle variabili d'ambiente)
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+    console.warn("⚠️ ATTENZIONE: JWT_SECRET non trovato nel file .env! Imposta una chiave sicura.");
+}
 
 app.use(cors());
 app.use(express.json());
