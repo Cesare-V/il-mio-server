@@ -17,3 +17,11 @@ model Progetto {
   completato  Boolean  @default(false)                // Di default è falso
   creatoIl    DateTime @default(now())                  // Salva automaticamente la data e l'ora attuali!
 }
+
+// ---- Tabella Utente ----
+model Utente {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique  // @unique impedisce che due persone usino la stessa email!
+  password String            // Conterrà l'HASH frullato, MAI la password vera!
+  creatoIl DateTime @default(now())
+}
